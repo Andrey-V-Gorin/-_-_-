@@ -1,0 +1,40 @@
+from confluent_kafka import Producer
+import json
+
+# Данные о пользователе
+
+
+# Конфигурация Kafka Producer
+conf = {
+    'bootstrap.servers': 'kafka1:9092,kafka2:9092'  # Адрес Kafka брокера
+}
+
+# Создание Producer
+producer = Producer(**conf)
+
+# Функция для обработки результатов доставки сообщения
+def delivery_report(err, msg):
+    if err is not None:
+        print(f'Message delivery failed: {err}')
+    else:
+        print(f'Message delivered to {msg.topic()} [{msg.partition()}]')
+
+# Преобразование данных в JSON и отправка в Kafka
+try:
+    for i in range(10000):
+        user_data = {
+            "id": i,
+            "first_name": "Petr",
+            "last_name": "Petrov",
+            "email": "pp@yandex.ru",
+            "login": "Petr_killer",
+            "hashed_password": "12345"
+        }
+        producer.produce(
+            topic='user_topic',  # Название топика
+            value=json.dumps(user_data),
+            callback=delivery_report
+        )
+    producer.flush()  # Ожидание доставки всех сообщений
+except Exception as e:
+    print(f'Error: {e}')
