@@ -1,0 +1,33 @@
+#Задание 1:
+print("Задание 1:")
+#Создание класса "Animal" с атрибутами "name" и "sound", и методом "make_sound()", который будет выводить на экран звук животного:
+class Animal:
+    def __init__(self, name, sound):
+        self.name = name
+        self.sound = sound
+    def make_sound(self):
+        print (f"{self.name} говорит: {self.sound}")
+
+#Cоздание объектов "Cat" и "Dog", которые будут наследоваться от класса "Animal" и иметь дополнительный атрибут "color", а также переопределение метода make_sound() для каждого подкласса:
+class Cat(Animal):
+    def __init__(self, name, sound, color):
+        super().__init__(name, sound)
+        self.color = color
+    def make_sound(self): #Переопределение метода make_sound() для подкласса
+        print(f"{self.name} говорит: Мяу")
+
+class Dog(Animal):
+    def __init__(self, name, sound, color):
+        super().__init__(name, sound)
+        self.color = color
+    def make_sound(self):
+       print(f"{self.name} говорит: Гав")
+
+# Примеры создания объектов
+animal = Animal("Животное", "Звук")
+cat = Cat("Кошка", "Мяу", "Серый")
+dog = Dog("Собака", "Гав", "Белый")
+
+animal.make_sound()
+cat.make_sound()
+dog.make_sound()
