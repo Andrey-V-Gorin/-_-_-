@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<body>
+    <h1>Финансовый отчет</h1>
+    <h2>Итоги</h2>
+    <p>Общий доход: {{ income_total }} ₽</p>
+    <p>Общий расход: {{ expense_total }} ₽</p>
+    <p>Баланс: {{ total_balance }} ₽</p>
+    
+    <h2>Транзакции</h2>
+    <table border="1">
+        <tr>
+            <th>Дата</th>
+            <th>Категория</th>
+            <th>Сумма</th>
+            <th>Тип</th>
+            <th>Описание</th>
+        </tr>
+        {% for transaction in transactions %}
+        <tr>
+            <td>{{ transaction.date }}</td>
+            <td>{{ transaction.category }}</td>
+            <td>{{ transaction.amount }}</td>
+            <td>{{ transaction.type }}</td>
+            <td>{{ transaction.description }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'main:add_transaction' %}" class="btn btn-primary col-md-12" style="margin: 10px">Добавить транзакцию</a>
+    <a href="/users/profile" style="margin: 10px">Назад в профиль</a>
+</body>
+{% endblock %}
