@@ -2,7 +2,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm, LoginForm, UserCreationForm
-from django.contrib.auth.models import User
 from django.contrib import messages
 
 # Create your views here.
@@ -26,7 +25,7 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data.get['username']
             password = form.cleaned_data.get['password']
-            user = authenticate(request, username = username, password1 = password)
+            user = authenticate(request, username = username, password = password)
             if user is not None:
                 login(request, user)
                 messages.success(request, 'Вы успешно вошли в систему!')
