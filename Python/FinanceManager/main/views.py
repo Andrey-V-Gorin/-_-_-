@@ -1,7 +1,6 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Transaction, Category
+from django.shortcuts import render, redirect
+from .models import Transaction
 from django.contrib.auth.decorators import login_required
-from .models import Transaction, Category
 from .forms import TransactionForm
 from django.db.models import Sum
 
@@ -9,8 +8,6 @@ from django.db.models import Sum
 
 def index(request):
     return render(request, "main/index.html")
-    #transactions = Transaction.objects.filter(user=request.user)
-    #return render(request, 'main/index.html', {'transactions': transactions})
 
 @login_required
 def add_transaction(request):
@@ -20,7 +17,6 @@ def add_transaction(request):
             transaction = form.save(commit=False)
             transaction.user = request.user
             transaction.save()
-            #return render(request, 'users/profile.html', {'form': form})
             return redirect('/users/profile/')
     else:
         form = TransactionForm(user=request.user)
